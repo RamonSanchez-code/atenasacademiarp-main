@@ -79,7 +79,7 @@ export default function FloatingCTA() {
     if (!whatsappNumber) return;
     const cleanNumber = whatsappNumber.replace(/\D/g, '');
     const message = encodeURIComponent("Olá! Estava tirando dúvidas no chat do site e gostaria de falar com um atendente.");
-    window.open(`https://wa.me/55${cleanNumber}?text=${message}`, '_blank');
+    window.open(`https://wa.me/55${cleanNumber}?text=${message}`, '_blank', 'noopener,noreferrer');
     setIsOpen(false);
   };
 

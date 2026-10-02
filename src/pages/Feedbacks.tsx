@@ -37,9 +37,10 @@ export default function Feedbacks() {
           className="absolute inset-0 z-0"
         >
           <img 
-            src="./unidades/caramuru/CARAMURU.FACHADA.jpg" 
+            src="./unidades/caramuru/caramuru-fachada.jpg" 
             className="w-full h-full object-cover opacity-30"
-           
+            fetchPriority="high"
+            decoding="async"
             alt="Gym Background"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-darkBg via-darkBg/80 to-transparent w-full md:w-3/4 lg:w-2/3 backdrop-blur-[2px]"></div>

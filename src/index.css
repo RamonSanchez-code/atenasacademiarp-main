@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Inter:wght@100..900&display=swap');
+/* As fontes Inter e Outfit sao carregadas no index.html com preconnect.
+   Um @import aqui atrasaria a renderizacao, pois so dispara depois do CSS baixar. */
 @import "tailwindcss";
 
 @theme {

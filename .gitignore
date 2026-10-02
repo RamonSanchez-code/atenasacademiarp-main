@@ -6,3 +6,6 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Fotos originais em alta resolucao (nao sao publicadas no site)
+_originais/

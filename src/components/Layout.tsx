@@ -10,7 +10,8 @@ const Logo = ({ className, footer, white }: { className?: string, footer?: boole
     <img 
       src={(footer || white) ? "./geral/atenas-academia_2015_logo_branco.png" : "./geral/atenas-academia_2015_logo.png"}
       alt="Academia Atenas"
-     
+      loading={footer ? "lazy" : "eager"}
+      decoding="async"
       className={className || (footer ? "h-12 sm:h-20 w-auto" : "h-10 sm:h-14 w-auto")}
      
     />

@@ -176,7 +176,7 @@ export default function UnitDetail() {
 
   const handleSubscribe = (planName: string) => {
     if (planName === 'Plano Recorrente' && unit?.recorrenteUrl) {
-      window.open(unit.recorrenteUrl, '_blank');
+      window.open(unit.recorrenteUrl, '_blank', 'noopener,noreferrer');
       return;
     }
 
@@ -189,7 +189,7 @@ export default function UnitDetail() {
     const message = `${greeting}! Gostaria de solicitar o ${planName} para poder realizar o meu cadastro e assinar este plano, para poder dar início aos meus treinos na Academia Atenas - ${unit.name}.`;
     const encodedMessage = encodeURIComponent(message);
     const whatsappNumber = unit.whatsapp.replace(/\D/g, '');
-    window.open(`https://wa.me/55${whatsappNumber}?text=${encodedMessage}`, '_blank');
+    window.open(`https://wa.me/55${whatsappNumber}?text=${encodedMessage}`, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -200,7 +200,8 @@ export default function UnitDetail() {
           <img 
             src={unit.photos[currentPhoto]} 
             className="w-full h-full object-cover opacity-30 transition-all duration-1000"
-           
+            fetchPriority="high"
+            decoding="async"
             alt={unit.name}
            
           />
@@ -250,7 +251,7 @@ export default function UnitDetail() {
                 <img 
                   src={unit.photos[currentPhoto]} 
                   alt={unit.name}
-                 
+                  decoding="async"
                  
                   className="w-full h-full object-cover"
                  
@@ -290,7 +291,7 @@ export default function UnitDetail() {
                 onClick={() => setCurrentPhoto(idx)}
                 className={`relative w-16 h-10 sm:w-32 sm:h-20 rounded-xl sm:rounded-2xl overflow-hidden border-2 shrink-0 transition-all ${idx === currentPhoto ? 'border-brand-green scale-110 shadow-xl shadow-brand-green/20' : 'border-transparent opacity-40 hover:opacity-100'}`}
               >
-                <img src={photo} className="w-full h-full object-cover" alt={`Thumbnail ${idx}`} />
+                <img src={photo} loading="lazy" decoding="async" className="w-full h-full object-cover" alt={`Thumbnail ${idx}`} />
               </button>
             ))}
           </div>
@@ -311,6 +312,8 @@ export default function UnitDetail() {
                 width="100%"
                 height="100%"
                 frameBorder="0"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
                 style={{ border: 0, filter: 'grayscale(1) invert(0.9) contrast(1.2) brightness(0.8)' }}
                 src={`https://maps.google.com/maps?q=${encodeURIComponent(unit.address)}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
                 allowFullScreen

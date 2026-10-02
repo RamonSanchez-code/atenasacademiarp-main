@@ -97,7 +97,8 @@ export default function Home() {
               exit={{ opacity: 0, scale: 1 }}
               transition={{ duration: 1.5 }}
               className="absolute inset-0 w-full h-full object-cover"
-             
+              fetchPriority="high"
+              decoding="async"
               alt="Gym Background"
             />
           </AnimatePresence>
@@ -348,7 +349,7 @@ export default function Home() {
                 className="group bg-darkCard rounded-[2rem] overflow-hidden border border-white/5 hover:border-brand-green/30 transition-all duration-500 flex flex-col"
               >
                 <div className="relative h-64 overflow-hidden">
-                  <img src={unit.img} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={unit.name} />
+                  <img src={unit.img} loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={unit.name} />
                   <div className="absolute inset-0 bg-gradient-to-t from-darkCard via-transparent to-transparent"></div>
                   <div className="absolute top-4 left-4 flex flex-wrap gap-2">
                     {unit.tags.map(tag => (
@@ -462,8 +463,8 @@ export default function Home() {
                 <img 
                   src={modality.img} 
                   alt={modality.name}
-                 
-                 
+                  loading="lazy"
+                  decoding="async"
                   className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 ${
                     activeModality === index ? "scale-110" : "scale-100"
                   }`}

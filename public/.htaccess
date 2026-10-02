@@ -1,0 +1,65 @@
+# ---------------------------------------------------------------------------
+# Academia Atenas - configuracao para hospedagem Apache/LiteSpeed (cPanel)
+#
+# Este arquivo reproduz, em hospedagem compartilhada, os mesmos cabecalhos de
+# seguranca e de cache que o vercel.json aplica na Vercel.
+#
+# Cada bloco esta protegido por <IfModule>: se o modulo nao existir no servidor,
+# as linhas sao ignoradas em vez de derrubar o site com erro 500.
+#
+# Nao e necessaria nenhuma regra de reescrita (RewriteRule): o site usa rotas
+# com "#" (HashRouter), entao todas as paginas sao servidas pelo index.html.
+# ---------------------------------------------------------------------------
+
+# ----------------------------- SEGURANCA -----------------------------------
+<IfModule mod_headers.c>
+    Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'self'; frame-src https://*.google.com; frame-ancestors 'none'; form-action 'self'; upgrade-insecure-requests"
+    Header always set X-Frame-Options "DENY"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
+    Header always set Cross-Origin-Opener-Policy "same-origin"
+
+    # HSTS: so ative depois que o SSL estiver funcionando no dominio.
+    # Com SSL ativo, descomente a linha abaixo.
+    # Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains"
+
+    # Nao expor a versao do servidor
+    Header unset X-Powered-By
+    Header always unset X-Powered-By
+</IfModule>
+
+# Impede que listem o conteudo das pastas de fotos
+Options -Indexes
+
+# ----------------------------- COMPRESSAO ----------------------------------
+# Reduz o JavaScript e o CSS em cerca de 70% na transferencia.
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+    AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+    AddOutputFilterByType DEFLATE application/json image/svg+xml
+</IfModule>
+
+# ------------------------------- CACHE -------------------------------------
+<IfModule mod_expires.c>
+    ExpiresActive On
+    # O index.html precisa ser sempre verificado, senao o visitante fica preso
+    # numa versao antiga do site depois de uma atualizacao.
+    ExpiresByType text/html "access plus 0 seconds"
+    # Os arquivos de assets/ tem o codigo no nome: podem ser guardados para sempre.
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType text/css "access plus 1 year"
+    # Fotos: 1 dia (o nome do arquivo nao muda quando a foto e trocada).
+    ExpiresByType image/jpeg "access plus 1 day"
+    ExpiresByType image/png "access plus 1 day"
+    ExpiresByType image/svg+xml "access plus 1 day"
+</IfModule>
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.(js|css)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    <FilesMatch "\.html$">
+        Header set Cache-Control "no-cache, must-revalidate"
+    </FilesMatch>
+</IfModule>

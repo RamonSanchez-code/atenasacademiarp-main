@@ -512,7 +512,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-8">
               <div className="flex items-center gap-3">
                 <Clock className="text-brand-green" size={20} />
-                <p className="text-xs font-bold"><span className="text-slate-500 uppercase tracking-widest mr-2">SEG-SEX:</span> 05:30 ÀS 23:30</p>
+                <p className="text-xs font-bold"><span className="text-slate-500 uppercase tracking-widest mr-2">SEG-SEX:</span> 05:30 ÀS 22:30</p>
               </div>
               <div className="flex items-center gap-3">
                 <Clock className="text-brand-blue" size={20} />
